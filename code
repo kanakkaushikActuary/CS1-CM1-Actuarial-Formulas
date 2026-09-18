@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS1 &amp; CM1 Actuarial Formula Reference | Kanak Kaushik</title>
+<meta name="description" content="Complete CS1 (Actuarial Statistics) and CM1 (Actuarial Mathematics) formula reference, grounded in IAI/IFoA syllabus and ActEd Course Notes.">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+  :root{
+    --purple-dark:#3B1E54;
+    --purple-dark2:#4A2E80;
+    --lavender:#F3E8FF;
+    --lavender-soft:#F5EFFB;
+    --ink:#111111;
+    --white:#ffffff;
+    --border:#d9c6f0;
+    --accent:#7B4FCB;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Times New Roman", Times, serif;
+    color:var(--ink);
+    background:var(--lavender-soft);
+    line-height:1.5;
+  }
+  a{color:var(--purple-dark2);}
+
+  /* ---------- Top navbar ---------- */
+  .navbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--purple-dark);
+    color:#fff;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0.7rem 1.2rem;
+    box-shadow:0 2px 8px rgba(0,0,0,0.25);
+    flex-wrap:wrap; gap:0.6rem;
+  }
+  .brand{
+    font-weight:bold; font-size:1.25rem; letter-spacing:0.3px;
+    color:#ffffff;
+    white-space:nowrap;
+  }
+  .brand small{
+    display:block; font-size:0.65rem; font-weight:normal; color:#e7d9fb;
+  }
+  .navbar .subtitle{
+    color:#e7d9fb; font-size:0.85rem; text-align:right;
+  }
+
+  /* ---------- Search bar ---------- */
+  .search-wrap{
+    background:var(--purple-dark2);
+    padding:0.8rem 1.2rem;
+    position:sticky; top:56px; z-index:49;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  }
+  #searchInput{
+    width:100%; max-width:700px; display:block; margin:0 auto;
+    padding:0.6rem 0.9rem;
+    font-family:"Times New Roman", Times, serif;
+    font-size:1rem;
+    border:none; border-radius:6px;
+    color:var(--ink);
+  }
+  .result-count{
+    text-align:center; color:#f0e6fc; font-size:0.85rem; margin-top:0.4rem;
+  }
+
+  /* ---------- Quick nav pills ---------- */
+  .pills-bar{
+    display:flex; gap:0.5rem; overflow-x:auto; padding:0.7rem 1.2rem;
+    background:var(--lavender);
+    border-bottom:2px solid var(--border);
+    position:sticky; top:112px; z-index:48;
+  }
+  .pill{
+    flex:0 0 auto;
+    background:#fff; border:1px solid var(--purple-dark2); color:var(--purple-dark2);
+    padding:0.35rem 0.85rem; border-radius:999px; font-size:0.85rem;
+    cursor:pointer; white-space:nowrap; font-family:"Times New Roman", Times, serif;
+    transition:background .15s, color .15s;
+  }
+  .pill.active, .pill:hover{ background:var(--purple-dark2); color:#fff; }
+
+  /* ---------- Layout ---------- */
+  .hero{
+    background:linear-gradient(135deg, var(--purple-dark), var(--purple-dark2));
+    color:#fff; padding:1.6rem 1.2rem; text-align:center;
+  }
+  .hero h1{ margin:0 0 0.3rem 0; font-size:1.7rem; }
+  .hero p{ margin:0.2rem 0; color:#ecdffb; font-size:0.95rem; }
+
+  .container{ max-width:1100px; margin:0 auto; padding:1.2rem; }
+
+  .subject-toggle{
+    display:flex; justify-content:center; gap:0.8rem; margin:1rem 0;
+  }
+  .subject-btn{
+    font-family:"Times New Roman", Times, serif;
+    background:#fff; border:2px solid var(--purple-dark);
+    color:var(--purple-dark); padding:0.5rem 1.4rem; border-radius:8px;
+    font-size:1rem; cursor:pointer; font-weight:bold;
+  }
+  .subject-btn.active{ background:var(--purple-dark); color:#fff; }
+
+  .category-block{ margin-bottom:1.4rem; scroll-margin-top:170px; }
+  .category-header{
+    background:var(--purple-dark);
+    color:#fff;
+    padding:0.65rem 1rem;
+    border-radius:8px 8px 0 0;
+    font-size:1.1rem; font-weight:bold;
+    display:flex; justify-content:space-between; align-items:center;
+    cursor:pointer;
+  }
+  .category-header .chap-tag{
+    font-size:0.75rem; font-weight:normal; color:#e7d9fb;
+  }
+  .category-body{
+    background:var(--lavender);
+    border:1px solid var(--border); border-top:none;
+    border-radius:0 0 8px 8px;
+    padding:0.8rem;
+    display:grid; grid-template-columns:1fr; gap:0.8rem;
+  }
+  @media(min-width:820px){
+    .category-body{ grid-template-columns:1fr 1fr; }
+  }
+  .category-body.collapsed{ display:none; }
+
+  .formula-card{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:0.75rem 0.9rem;
+  }
+  .formula-card h3{
+    margin:0 0 0.35rem 0; font-size:1rem; color:var(--purple-dark2);
+  }
+  .formula-math{
+    background:var(--lavender-soft);
+    border:1px dashed var(--border);
+    border-radius:6px;
+    padding:0.5rem 0.6rem;
+    overflow-x:auto;
+    margin:0.35rem 0;
+    font-size:0.98rem;
+  }
+  .formula-notes{ font-size:0.88rem; color:#222; margin:0.3rem 0 0.4rem 0; }
+  .formula-source{ font-size:0.75rem; color:#555; font-style:italic; }
+  .copy-btn{
+    font-family:"Times New Roman", Times, serif;
+    background:var(--purple-dark2); color:#fff; border:none;
+    padding:0.25rem 0.6rem; border-radius:5px; font-size:0.75rem; cursor:pointer;
+    margin-top:0.25rem;
+  }
+  .copy-btn:hover{ background:var(--purple-dark); }
+  .copy-btn.copied{ background:#2e7d32; }
+
+  .tag-badge{
+    display:inline-block; background:var(--lavender); border:1px solid var(--purple-dark2);
+    color:var(--purple-dark2); font-size:0.7rem; border-radius:4px; padding:0.05rem 0.4rem;
+    margin-left:0.4rem;
+  }
+
+  footer{
+    text-align:center; padding:1.4rem; color:#333; font-size:0.85rem;
+    background:var(--lavender);
+    border-top:2px solid var(--border);
+  }
+  .no-results{ text-align:center; padding:2rem; font-size:1.05rem; color:#555; display:none; }
+
+  .toc-note{
+    background:#fff; border:1px solid var(--border); border-radius:8px;
+    padding:0.8rem 1rem; margin-bottom:1.2rem; font-size:0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="brand">Kanak Kaushik<small>Actuarial Formula Reference</small></div>
+  <div class="subtitle">CS1 · Actuarial Statistics &nbsp;|&nbsp; CM1 · Actuarial Mathematics<br>Institute of Actuaries of India (IAI) Syllabus</div>
+</div>
+
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="Search formulas... e.g. Poisson, Annuity, Credibility, Mortality, GLM">
+  <div class="result-count" id="resultCount"></div>
+</div>
+
+<div class="pills-bar" id="pillsBar"></div>
+
+<div class="hero">
+  <h1>CS1 &amp; CM1 Formula &amp; Notation Compendium</h1>
+  <p>Every core formula, statistical notation, R function and actuarial function referenced against the IAI/IFoA CS1 and CM1 syllabus and ActEd Course Notes (2019 CMP).</p>
+</div>
+
+<div class="container">
+
+  <div class="toc-note">
+    <strong>How to use this page:</strong> Use the search bar to filter by keyword (distribution name, chapter, notation symbol).
+    Use the subject toggle and category pills to jump straight to a topic. Click a category header to expand/collapse it.
+    Each card has a <em>Copy LaTeX</em> button so you can paste the exact formula into your own notes.
+  </div>
+
+  <div class="subject-toggle">
+    <button class="subject-btn active" data-subject="ALL">All</button>
+    <button class="subject-btn" data-subject="CS1">CS1 — Actuarial Statistics</button>
+    <button class="subject-btn" data-subject="CM1">CM1 — Actuarial Mathematics</button>
+  </div>
+
+  <div id="content"></div>
+  <div class="no-results" id="noResults">No formulas match your search. Try a different keyword.</div>
+</div>
+
+<footer>
+  <p>Source grounding: CS1 &amp; CM1 Combined Materials Packs (ActEd, 2019), covering the Institute of Actuaries of India (IAI) / Institute &amp; Faculty of Actuaries (IFoA) CS1 and CM1 syllabus objectives.</p>
+  <p>Built for study reference only — always verify against the current official IAI syllabus and Core Reading before an exam sitting.</p>
+</footer>
+
+<script>
+const FORMULAS = [{"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Binomial distribution — pmf", "latex": "P(X=x)=\\binom{n}{x}p^{x}(1-p)^{n-x},\\quad x=0,1,\\dots ,n", "notes": "n = number of trials, p = probability of success on each trial, X = number of successes. Mean = np, Var = np(1-p).", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Poisson distribution — pmf", "latex": "P(X=x)=\\dfrac{e^{-\\lambda}\\lambda^{x}}{x!},\\quad x=0,1,2,\\dots", "notes": "λ = mean rate of occurrence. Mean = λ, Var = λ. Sum of independent Poisson(λᵢ) is Poisson(Σλᵢ).", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Geometric distribution — pmf", "latex": "P(X=x)=p(1-p)^{x-1},\\quad x=1,2,3,\\dots", "notes": "p = probability of success; X = trial number of first success. Mean = 1/p, Var = (1-p)/p².", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Negative binomial distribution — pmf", "latex": "P(X=x)=\\binom{x-1}{k-1}p^{k}(1-p)^{x-k},\\quad x=k,k+1,\\dots", "notes": "k = number of successes required, p = success probability, X = trial of k‑th success. Mean = k/p, Var = k(1-p)/p².", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Hypergeometric distribution — pmf", "latex": "P(X=x)=\\dfrac{\\binom{M}{x}\\binom{N-M}{n-x}}{\\binom{N}{n}}", "notes": "Population size N, M 'successes' in population, sample size n without replacement. Mean = nM/N.", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Discrete uniform on {1,...,n}", "latex": "P(X=x)=\\dfrac{1}{n},\\quad x=1,2,\\dots ,n \\qquad E[X]=\\dfrac{n+1}{2},\\ \\ Var(X)=\\dfrac{n^{2}-1}{12}", "notes": "Each of the n outcomes is equally likely.", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Normal distribution — pdf", "latex": "f(x)=\\dfrac{1}{\\sigma\\sqrt{2\\pi}}\\exp\\!\\left(-\\dfrac{(x-\\mu)^{2}}{2\\sigma^{2}}\\right),\\quad -\\infty<x<\\infty", "notes": "μ = mean, σ² = variance. Standardised Z=(X-μ)/σ ~ N(0,1).", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Lognormal distribution — pdf", "latex": "f(x)=\\dfrac{1}{x\\sigma\\sqrt{2\\pi}}\\exp\\!\\left(-\\dfrac{(\\ln x-\\mu)^{2}}{2\\sigma^{2}}\\right),\\quad x>0", "notes": "If \\ln X \\sim N(\\mu,\\sigma^{2}) then E[X]=e^{\\mu+\\sigma^{2}/2},\\; Var(X)=e^{2\\mu+\\sigma^{2}}\\left(e^{\\sigma^{2}}-1\\right).", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Exponential distribution — pdf", "latex": "f(x)=\\lambda e^{-\\lambda x},\\quad x\\ge 0 \\qquad F(x)=1-e^{-\\lambda x}", "notes": "λ = rate parameter. Mean = 1/λ, Var = 1/λ². Memoryless: P(X>s+t\\,|\\,X>s)=P(X>t).", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Gamma distribution — pdf", "latex": "f(x)=\\dfrac{\\lambda^{\\alpha}}{\\Gamma(\\alpha)}x^{\\alpha-1}e^{-\\lambda x},\\quad x>0", "notes": "α = shape, λ = rate. Mean = α/λ, Var = α/λ². Sum of α i.i.d. Exp(λ) is Gamma(α,λ).", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Chi-square distribution", "latex": "f(x)=\\dfrac{1}{2^{k/2}\\Gamma(k/2)}x^{k/2-1}e^{-x/2},\\quad x>0", "notes": "k = degrees of freedom = Gamma(k/2, 1/2). Mean = k, Var = 2k. Sum of k squared independent N(0,1) variables.", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Student's t-distribution", "latex": "f(t)=\\dfrac{\\Gamma\\!\\left(\\frac{\\nu+1}{2}\\right)}{\\sqrt{\\nu\\pi}\\,\\Gamma\\!\\left(\\frac{\\nu}{2}\\right)}\\left(1+\\dfrac{t^{2}}{\\nu}\\right)^{-\\frac{\\nu+1}{2}}", "notes": "ν = degrees of freedom. Symmetric about 0; tends to N(0,1) as ν→∞.", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "F-distribution", "latex": "F=\\dfrac{U/\\nu_{1}}{V/\\nu_{2}}\\sim F_{\\nu_{1},\\nu_{2}}", "notes": "U ~ χ²(ν₁), V ~ χ²(ν₂) independent. Used for ratio of two sample variances.", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Beta distribution — pdf", "latex": "f(x)=\\dfrac{1}{B(\\alpha,\\beta)}x^{\\alpha-1}(1-x)^{\\beta-1},\\quad 0<x<1", "notes": "B(\\alpha,\\beta)=\\dfrac{\\Gamma(\\alpha)\\Gamma(\\beta)}{\\Gamma(\\alpha+\\beta)}. \\; Mean=\\dfrac{\\alpha}{\\alpha+\\beta}.", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "Continuous uniform on (a,b)", "latex": "f(x)=\\dfrac{1}{b-a},\\; a<x<b \\qquad E[X]=\\dfrac{a+b}{2},\\;\\;Var(X)=\\dfrac{(b-a)^{2}}{12}", "notes": "All values in (a,b) equally likely.", "tag": "Probability Distributions"}, {"subject": "CS1", "chapter": "Ch.1 Probability distributions", "category": "Probability Distributions", "title": "R density/probability functions", "latex": "\\texttt{dbinom(x,n,p)}\\;\\; \\texttt{dpois(x,lambda)}\\;\\; \\texttt{dnorm(x,mean,sd)}\\;\\; \\texttt{dexp(x,rate)}\\;\\; \\texttt{pgamma(q,shape,rate)}", "notes": "R prefixes: d = density/pmf, p = cdf, q = quantile, r = random generation, e.g. rbinom(), qnorm().", "tag": "R Code"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "Moment generating function (MGF)", "latex": "M_X(t)=E\\!\\left[e^{tX}\\right]=\\sum_x e^{tx}P(X=x)\\;\\;\\text{or}\\;\\;\\int_{-\\infty}^{\\infty}e^{tx}f(x)\\,dx", "notes": "Moments obtained by differentiation: E[Xʳ] = M_X^{(r)}(0).", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "MGF of the sum of independent r.v.s", "latex": "M_{X+Y}(t)=M_X(t)\\,M_Y(t)\\quad\\text{(X, Y independent)}", "notes": "Products of MGFs identify the distribution of a sum of independent variables.", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "Probability generating function (PGF)", "latex": "P_X(t)=E\\!\\left[t^{X}\\right]=\\sum_{x=0}^{\\infty}t^{x}P(X=x)", "notes": "Used for non-negative integer r.v.s. E[X]=P_X'(1),\\;\\; Var(X)=P_X''(1)+P_X'(1)-\\left[P_X'(1)\\right]^{2}.", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "Cumulant generating function (CGF)", "latex": "C_X(t)=\\ln M_X(t)=\\sum_{r=1}^{\\infty}\\kappa_r\\dfrac{t^{r}}{r!}", "notes": "\\kappa_r = r\\text{-th cumulant} = C_X^{(r)}(0). \\;\\kappa_1=E[X],\\;\\;\\kappa_2=Var(X).", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "Skewness from cumulants", "latex": "\\text{Coefficient of skewness}=\\dfrac{\\kappa_3}{\\kappa_2^{3/2}}", "notes": "Third standardised cumulant; measures asymmetry of the distribution.", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "MGF of the Binomial", "latex": "M_X(t)=\\left(1-p+pe^{t}\\right)^{n}", "notes": "X ~ Binomial(n,p).", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "MGF of the Poisson", "latex": "M_X(t)=\\exp\\!\\left[\\lambda\\left(e^{t}-1\\right)\\right]", "notes": "X ~ Poisson(λ). Confirms additive property of independent Poissons.", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "MGF of the Normal", "latex": "M_X(t)=\\exp\\!\\left(\\mu t+\\tfrac12 \\sigma^{2}t^{2}\\right)", "notes": "X ~ N(μ,σ²). Linear combinations of independent normals are normal.", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.2 Generating functions", "category": "Generating Functions", "title": "MGF of the Exponential/Gamma", "latex": "M_X(t)=\\left(\\dfrac{\\lambda}{\\lambda-t}\\right)^{\\alpha},\\;\\; t<\\lambda", "notes": "α=1 gives the Exponential(λ) MGF, λ/(λ−t).", "tag": "Generating Functions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Joint pmf / joint pdf", "latex": "P(X=x,Y=y)=p(x,y)\\qquad f_{X,Y}(x,y)=\\dfrac{\\partial^{2}F(x,y)}{\\partial x\\,\\partial y}", "notes": "Joint distribution function F(x,y)=P(X≤x, Y≤y).", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Marginal distributions", "latex": "f_X(x)=\\int_{-\\infty}^{\\infty}f_{X,Y}(x,y)\\,dy \\qquad P(X=x)=\\sum_y p(x,y)", "notes": "Obtained by integrating/summing out the other variable.", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Independence of random variables", "latex": "f_{X,Y}(x,y)=f_X(x)f_Y(y)\\;\\;\\text{for all }x,y", "notes": "Equivalent to P(X=x,Y=y)=P(X=x)P(Y=y) in the discrete case.", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Covariance", "latex": "Cov(X,Y)=E[XY]-E[X]E[Y]", "notes": "Measures the joint linear variability of X and Y; zero if X, Y independent (converse not generally true).", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Correlation coefficient", "latex": "\\rho(X,Y)=\\dfrac{Cov(X,Y)}{\\sqrt{Var(X)\\,Var(Y)}},\\quad -1\\le \\rho \\le 1", "notes": "Dimensionless measure of linear association.", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Variance of a linear combination", "latex": "Var(aX+bY)=a^{2}Var(X)+b^{2}Var(Y)+2ab\\,Cov(X,Y)", "notes": "For independent X,Y the covariance term vanishes.", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Mean/variance of a sum of n r.v.s", "latex": "E\\!\\left[\\sum_{i=1}^{n}X_i\\right]=\\sum_{i=1}^{n}E[X_i]\\qquad Var\\!\\left[\\sum_{i=1}^{n}X_i\\right]=\\sum_{i=1}^{n}Var(X_i)+2\\sum_{i<j}Cov(X_i,X_j)", "notes": "For independent Xᵢ the covariance terms are all zero.", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Convolution — pdf of X+Y", "latex": "f_{X+Y}(z)=\\int_{-\\infty}^{\\infty}f_X(x)\\,f_Y(z-x)\\,dx", "notes": "Applies when X, Y are independent continuous random variables.", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.3 Joint distributions", "category": "Joint & Multivariate Distributions", "title": "Distribution of a transformed variable", "latex": "f_Y(y)=f_X\\!\\big(g^{-1}(y)\\big)\\left|\\dfrac{d}{dy}g^{-1}(y)\\right|", "notes": "Y = g(X), g monotonic and differentiable (change-of-variable / Jacobian technique).", "tag": "Joint & Multivariate Distributions"}, {"subject": "CS1", "chapter": "Ch.4 Conditional expectation", "category": "Conditional Expectation", "title": "Conditional expectation", "latex": "E[X\\mid Y=y]=\\sum_x x\\,P(X=x\\mid Y=y)\\quad\\text{or}\\quad \\int x\\,f_{X\\mid Y}(x\\mid y)\\,dx", "notes": "A function of y; E[X|Y] is itself a random variable (function of Y).", "tag": "Conditional Expectation"}, {"subject": "CS1", "chapter": "Ch.4 Conditional expectation", "category": "Conditional Expectation", "title": "Tower property (law of total expectation)", "latex": "E[X]=E\\big[E[X\\mid Y]\\big]", "notes": "Allows E[X] to be computed by conditioning on another variable Y.", "tag": "Conditional Expectation"}, {"subject": "CS1", "chapter": "Ch.4 Conditional expectation", "category": "Conditional Expectation", "title": "Conditional variance decomposition (EVVE)", "latex": "Var(X)=E\\big[Var(X\\mid Y)\\big]+Var\\big[E(X\\mid Y)\\big]", "notes": "Total variance = expectation of conditional variance + variance of conditional mean.", "tag": "Conditional Expectation"}, {"subject": "CS1", "chapter": "Ch.4 Conditional expectation", "category": "Conditional Expectation", "title": "Compound (aggregate) distribution mean", "latex": "E[S]=E[N]\\,E[X]\\qquad Var(S)=E[N]Var(X)+Var(N)\\big(E[X]\\big)^{2}", "notes": "S=\\sum_{i=1}^{N}X_i, N random and Xᵢ i.i.d., independent of N (compound distribution / collective risk model).", "tag": "Conditional Expectation"}, {"subject": "CS1", "chapter": "Ch.5 Central limit theorem", "category": "Central Limit Theorem", "title": "Central Limit Theorem", "latex": "\\dfrac{\\bar X_n-\\mu}{\\sigma/\\sqrt{n}}\\;\\xrightarrow{d}\\;N(0,1)\\quad\\text{as } n\\to\\infty", "notes": "For i.i.d. X₁,...,Xₙ with mean μ, variance σ², regardless of the underlying distribution.", "tag": "Central Limit Theorem"}, {"subject": "CS1", "chapter": "Ch.5 Central limit theorem", "category": "Central Limit Theorem", "title": "Normal approximation to the Binomial", "latex": "X\\sim Bin(n,p)\\;\\approx\\; N\\big(np,\\,np(1-p)\\big)\\quad\\text{(with continuity correction)}", "notes": "Good when n is large and p not too close to 0 or 1 (np(1−p) ≥ 5 rule of thumb).", "tag": "Central Limit Theorem"}, {"subject": "CS1", "chapter": "Ch.5 Central limit theorem", "category": "Central Limit Theorem", "title": "Normal approximation to the Poisson", "latex": "X\\sim Poisson(\\lambda)\\;\\approx\\; N(\\lambda,\\lambda)\\quad\\text{for large }\\lambda", "notes": "Continuity correction recommended for discrete-to-continuous approximation.", "tag": "Central Limit Theorem"}, {"subject": "CS1", "chapter": "Ch.6 Sampling and statistical inference", "category": "Sampling Distributions", "title": "Sample mean", "latex": "\\bar X=\\dfrac1n\\sum_{i=1}^{n}X_i\\qquad E[\\bar X]=\\mu,\\;\\; Var(\\bar X)=\\dfrac{\\sigma^{2}}{n}", "notes": "For a random sample of size n from a population with mean μ, variance σ².", "tag": "Sampling Distributions"}, {"subject": "CS1", "chapter": "Ch.6 Sampling and statistical inference", "category": "Sampling Distributions", "title": "Sample variance (unbiased)", "latex": "S^{2}=\\dfrac{1}{n-1}\\sum_{i=1}^{n}\\left(X_i-\\bar X\\right)^{2}\\qquad E[S^{2}]=\\sigma^{2}", "notes": "Divides by n−1 (Bessel's correction) so that S² is an unbiased estimator of σ².", "tag": "Sampling Distributions"}, {"subject": "CS1", "chapter": "Ch.6 Sampling and statistical inference", "category": "Sampling Distributions", "title": "Sampling distribution of the sample mean (normal population)", "latex": "\\bar X\\sim N\\!\\left(\\mu,\\dfrac{\\sigma^{2}}{n}\\right)", "notes": "Exact for normal populations; approximate (via CLT) otherwise.", "tag": "Sampling Distributions"}, {"subject": "CS1", "chapter": "Ch.6 Sampling and statistical inference", "category": "Sampling Distributions", "title": "Chi-square result for sample variance", "latex": "\\dfrac{(n-1)S^{2}}{\\sigma^{2}}\\sim \\chi^{2}_{n-1}", "notes": "For a random sample from N(μ,σ²); independent of X̄.", "tag": "Sampling Distributions"}, {"subject": "CS1", "chapter": "Ch.6 Sampling and statistical inference", "category": "Sampling Distributions", "title": "t-statistic", "latex": "T=\\dfrac{\\bar X-\\mu}{S/\\sqrt n}\\sim t_{n-1}", "notes": "Used when σ is unknown and estimated by S; exact for normal populations.", "tag": "Sampling Distributions"}, {"subject": "CS1", "chapter": "Ch.6 Sampling and statistical inference", "category": "Sampling Distributions", "title": "F-statistic for two sample variances", "latex": "F=\\dfrac{S_1^{2}/\\sigma_1^{2}}{S_2^{2}/\\sigma_2^{2}}\\sim F_{n_1-1,\\,n_2-1}", "notes": "Independent samples from two normal populations; used to compare variances.", "tag": "Sampling Distributions"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Method of moments", "latex": "\\text{Solve } \\dfrac1n\\sum_{i=1}^{n}X_i^{k}=E[X^{k}]\\;\\;\\text{for } k=1,2,\\dots", "notes": "Equates sample moments to theoretical (population) moments to estimate parameters.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Likelihood function", "latex": "L(\\theta)=\\prod_{i=1}^{n}f(x_i;\\theta)\\qquad \\ell(\\theta)=\\ln L(\\theta)=\\sum_{i=1}^{n}\\ln f(x_i;\\theta)", "notes": "The MLE θ̂ maximises L(θ), equivalently the log-likelihood ℓ(θ).", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Maximum likelihood equation", "latex": "\\dfrac{\\partial \\ell(\\theta)}{\\partial \\theta}=0", "notes": "Solved (subject to second-order/boundary checks) to obtain the MLE θ̂.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Bias of an estimator", "latex": "Bias(\\hat\\theta)=E[\\hat\\theta]-\\theta", "notes": "An estimator is unbiased if Bias(θ̂)=0 for all θ.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Mean squared error (MSE)", "latex": "MSE(\\hat\\theta)=E\\big[(\\hat\\theta-\\theta)^{2}\\big]=Var(\\hat\\theta)+\\big[Bias(\\hat\\theta)\\big]^{2}", "notes": "Used to compare estimators that may not both be unbiased.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Consistency", "latex": "\\hat\\theta_n \\xrightarrow{P} \\theta \\quad\\text{as } n\\to\\infty", "notes": "An estimator is (weakly) consistent if it converges in probability to the true parameter.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Relative efficiency", "latex": "\\text{Efficiency of } \\hat\\theta_1 \\text{ relative to } \\hat\\theta_2 = \\dfrac{Var(\\hat\\theta_2)}{Var(\\hat\\theta_1)}", "notes": "Compares two unbiased estimators; the more efficient estimator has smaller variance.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Cramér–Rao lower bound", "latex": "Var(\\hat\\theta)\\ge \\dfrac{1}{n\\,E\\!\\left[\\left(\\dfrac{\\partial \\ln f(X;\\theta)}{\\partial\\theta}\\right)^{2}\\right]}=\\dfrac{1}{-n\\,E\\!\\left[\\dfrac{\\partial^{2}\\ln f(X;\\theta)}{\\partial\\theta^{2}}\\right]}", "notes": "Lower bound on the variance of any unbiased estimator; efficient estimators attain equality.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Asymptotic distribution of the MLE", "latex": "\\hat\\theta \\;\\dot\\sim\\; N\\!\\left(\\theta,\\; \\dfrac{1}{n\\,I(\\theta)}\\right)\\quad\\text{for large }n", "notes": "I(θ) is Fisher's information per observation; the MLE is asymptotically unbiased and efficient.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "Bootstrap estimate of standard error", "latex": "\\widehat{se}_{boot}=\\sqrt{\\dfrac{1}{B-1}\\sum_{b=1}^{B}\\left(\\hat\\theta^{*}_b-\\bar{\\hat\\theta}^{*}\\right)^{2}}", "notes": "θ̂*_b is the estimate from the b-th resampled (with replacement) bootstrap sample; B = number of bootstrap replications.", "tag": "Estimation"}, {"subject": "CS1", "chapter": "Ch.7 Point estimation", "category": "Estimation", "title": "R: maximum likelihood fitting", "latex": "\\texttt{optim(par, fn, method='BFGS')}\\qquad \\texttt{fitdistr(x, densfun='gamma')}", "notes": "Numerically maximises (or minimises the negative of) the log-likelihood function.", "tag": "R Code"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "CI for a normal mean, σ known", "latex": "\\bar X \\pm z_{\\alpha/2}\\dfrac{\\sigma}{\\sqrt n}", "notes": "z_{α/2} is the upper α/2 point of N(0,1); (1−α) confidence level.", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "CI for a normal mean, σ unknown", "latex": "\\bar X \\pm t_{n-1,\\,\\alpha/2}\\dfrac{S}{\\sqrt n}", "notes": "Uses Student's t distribution with n−1 degrees of freedom.", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "CI for a normal variance", "latex": "\\left(\\dfrac{(n-1)S^{2}}{\\chi^{2}_{n-1,\\,\\alpha/2}},\\;\\; \\dfrac{(n-1)S^{2}}{\\chi^{2}_{n-1,\\,1-\\alpha/2}}\\right)", "notes": "Based on the χ² distribution of (n−1)S²/σ².", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "CI for a binomial proportion (normal approximation)", "latex": "\\hat p \\pm z_{\\alpha/2}\\sqrt{\\dfrac{\\hat p(1-\\hat p)}{n}}", "notes": "p̂ = X/n; valid for large n by the CLT.", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "CI for a Poisson mean (normal approximation)", "latex": "\\bar X \\pm z_{\\alpha/2}\\sqrt{\\dfrac{\\bar X}{n}}", "notes": "Uses the fact that Var(X̄)=λ/n for Poisson(λ) data.", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "CI for the difference of two normal means (independent samples)", "latex": "(\\bar X_1-\\bar X_2)\\pm t_{\\alpha/2}\\,S_p\\sqrt{\\dfrac1{n_1}+\\dfrac1{n_2}},\\quad S_p^2=\\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}", "notes": "Assumes equal (unknown) population variances, pooled estimate Sₚ²; df = n₁+n₂−2.", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "CI for paired data", "latex": "\\bar D \\pm t_{n-1,\\,\\alpha/2}\\dfrac{S_D}{\\sqrt n}", "notes": "D_i = X_i − Y_i are the paired differences; reduces to a one-sample CI on D.", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.8 Confidence intervals", "category": "Confidence Intervals", "title": "Bootstrap percentile confidence interval", "latex": "\\left(\\hat\\theta^{*}_{(\\alpha/2)},\\;\\hat\\theta^{*}_{(1-\\alpha/2)}\\right)", "notes": "The α/2 and (1−α/2) empirical percentiles of the B bootstrap replicate estimates.", "tag": "Confidence Intervals"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "z-test for a normal mean (σ known)", "latex": "Z=\\dfrac{\\bar X-\\mu_0}{\\sigma/\\sqrt n}\\sim N(0,1)\\;\\;\\text{under } H_0", "notes": "Reject H₀:μ=μ₀ if |Z| exceeds the critical value for the chosen significance level α.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "t-test for a normal mean (σ unknown)", "latex": "T=\\dfrac{\\bar X-\\mu_0}{S/\\sqrt n}\\sim t_{n-1}\\;\\;\\text{under } H_0", "notes": "One-sample t-test; two-sample and paired versions follow the same construction.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "Likelihood ratio test statistic", "latex": "\\Lambda=\\dfrac{\\sup_{\\theta\\in\\Theta_0}L(\\theta)}{\\sup_{\\theta\\in\\Theta}L(\\theta)}\\qquad -2\\ln\\Lambda \\;\\dot\\sim\\; \\chi^{2}_{d}", "notes": "d = difference in the number of free parameters between Θ and the null subspace Θ₀.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "Chi-square goodness-of-fit test", "latex": "X^{2}=\\sum_{i=1}^{k}\\dfrac{(O_i-E_i)^{2}}{E_i}\\sim \\chi^{2}_{k-1-m}", "notes": "Oᵢ = observed, Eᵢ = expected frequency in cell i; m = number of parameters estimated from the data.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "Chi-square test of independence (contingency table)", "latex": "X^{2}=\\sum_{i,j}\\dfrac{(O_{ij}-E_{ij})^{2}}{E_{ij}},\\quad E_{ij}=\\dfrac{R_i\\,C_j}{n},\\;\\; df=(r-1)(c-1)", "notes": "Rᵢ = row total, Cⱼ = column total, n = grand total, for an r×c contingency table.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "Power of a test", "latex": "\\text{Power}=1-\\beta=P(\\text{reject } H_0 \\mid H_1 \\text{ true})", "notes": "β = P(Type II error). Power increases with sample size and with the true effect size.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "Type I / Type II error definitions", "latex": "\\alpha=P(\\text{reject } H_0\\mid H_0 \\text{ true})\\qquad \\beta=P(\\text{accept } H_0\\mid H_1 \\text{ true})", "notes": "α = significance level, chosen by the analyst; β depends on the true (alternative) parameter value.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "Two-sample proportion test (normal approx.)", "latex": "Z=\\dfrac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)\\left(\\frac1{n_1}+\\frac1{n_2}\\right)}},\\;\\;\\hat p=\\dfrac{X_1+X_2}{n_1+n_2}", "notes": "p̂ is the pooled proportion under H₀: p₁ = p₂.", "tag": "Hypothesis Testing"}, {"subject": "CS1", "chapter": "Ch.9 Hypothesis testing", "category": "Hypothesis Testing", "title": "R: hypothesis tests", "latex": "\\texttt{t.test(x,y)}\\qquad \\texttt{prop.test(x,n)}\\qquad \\texttt{chisq.test(table)}", "notes": "Base-R functions returning the test statistic, degrees of freedom and p-value.", "tag": "R Code"}, {"subject": "CS1", "chapter": "Ch.10 Data analysis", "category": "Exploratory Data Analysis & Correlation", "title": "Sample mean and variance (descriptive)", "latex": "\\bar x=\\dfrac1n\\sum_{i=1}^n x_i \\qquad s^{2}=\\dfrac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\bar x)^{2}", "notes": "Basic exploratory summary statistics of location and spread.", "tag": "Exploratory Data Analysis & Correlation"}, {"subject": "CS1", "chapter": "Ch.10 Data analysis", "category": "Exploratory Data Analysis & Correlation", "title": "Pearson's product-moment correlation coefficient", "latex": "r=\\dfrac{S_{xy}}{\\sqrt{S_{xx}S_{yy}}},\\quad S_{xy}=\\sum_{i}(x_i-\\bar x)(y_i-\\bar y)", "notes": "Measures linear association between two continuous variables; −1 ≤ r ≤ 1.", "tag": "Exploratory Data Analysis & Correlation"}, {"subject": "CS1", "chapter": "Ch.10 Data analysis", "category": "Exploratory Data Analysis & Correlation", "title": "Test for Pearson correlation = 0", "latex": "T=r\\sqrt{\\dfrac{n-2}{1-r^{2}}}\\sim t_{n-2}\\;\\;\\text{under } H_0:\\rho=0", "notes": "Valid under a bivariate-normal assumption.", "tag": "Exploratory Data Analysis & Correlation"}, {"subject": "CS1", "chapter": "Ch.10 Data analysis", "category": "Exploratory Data Analysis & Correlation", "title": "Spearman's rank correlation coefficient", "latex": "r_s=1-\\dfrac{6\\sum_i d_i^{2}}{n(n^{2}-1)}", "notes": "dᵢ = difference between the ranks of xᵢ and yᵢ; a non-parametric measure of monotonic association.", "tag": "Exploratory Data Analysis & Correlation"}, {"subject": "CS1", "chapter": "Ch.10 Data analysis", "category": "Exploratory Data Analysis & Correlation", "title": "Kendall's tau", "latex": "\\tau=\\dfrac{n_c-n_d}{\\binom{n}{2}}", "notes": "n_c = number of concordant pairs, n_d = number of discordant pairs among all pairs of observations.", "tag": "Exploratory Data Analysis & Correlation"}, {"subject": "CS1", "chapter": "Ch.10 Data analysis", "category": "Exploratory Data Analysis & Correlation", "title": "Principal components — first principal component", "latex": "Z_1=a_1^{T}X,\\quad a_1=\\arg\\max_{\\|a\\|=1} Var(a^{T}X)", "notes": "a₁ is the eigenvector of the covariance matrix Σ corresponding to its largest eigenvalue; successive PCs are orthogonal directions of decreasing variance.", "tag": "Exploratory Data Analysis & Correlation"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Simple linear regression model", "latex": "Y_i=\\alpha+\\beta x_i+\\varepsilon_i,\\quad \\varepsilon_i \\;\\text{i.i.d.}\\; N(0,\\sigma^{2})", "notes": "Response Yᵢ, explanatory variable xᵢ (fixed), error εᵢ; standard OLS assumptions.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Least squares estimator of the slope", "latex": "\\hat\\beta=\\dfrac{S_{xy}}{S_{xx}}=\\dfrac{\\sum_i(x_i-\\bar x)(y_i-\\bar y)}{\\sum_i(x_i-\\bar x)^{2}}", "notes": "Minimises the residual sum of squares Σ(yᵢ − α − βxᵢ)².", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Least squares estimator of the intercept", "latex": "\\hat\\alpha=\\bar y-\\hat\\beta \\bar x", "notes": "The fitted line passes through the point (x̄, ȳ).", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Variance of the slope estimator", "latex": "Var(\\hat\\beta)=\\dfrac{\\sigma^{2}}{S_{xx}}", "notes": "σ² estimated by the residual mean square s² = RSS/(n−2).", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Residual sum of squares & s²", "latex": "RSS=S_{yy}-\\hat\\beta S_{xy}\\qquad s^{2}=\\dfrac{RSS}{n-2}", "notes": "s² is the unbiased estimator of the error variance σ².", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Coefficient of determination R²", "latex": "R^{2}=1-\\dfrac{RSS}{S_{yy}}=\\dfrac{S_{xy}^{2}}{S_{xx}S_{yy}}", "notes": "Proportion of the variability in Y explained by the fitted regression on X.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Confidence interval for the slope", "latex": "\\hat\\beta \\pm t_{n-2,\\,\\alpha/2}\\sqrt{\\dfrac{s^{2}}{S_{xx}}}", "notes": "Used to test H₀: β=0 and construct interval estimates.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Prediction interval for a mean response", "latex": "\\hat y_0 \\pm t_{n-2,\\,\\alpha/2}\\, s\\sqrt{\\dfrac1n+\\dfrac{(x_0-\\bar x)^{2}}{S_{xx}}}", "notes": "Interval for E[Y|X=x₀]; narrower than the interval for an individual response.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Prediction interval for an individual response", "latex": "\\hat y_0 \\pm t_{n-2,\\,\\alpha/2}\\, s\\sqrt{1+\\dfrac1n+\\dfrac{(x_0-\\bar x)^{2}}{S_{xx}}}", "notes": "Wider than the mean-response interval because it also allows for the individual error term.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Multiple linear regression model (matrix form)", "latex": "\\mathbf{Y}=\\mathbf{X}\\boldsymbol{\\beta}+\\boldsymbol{\\varepsilon},\\quad \\boldsymbol{\\varepsilon}\\sim N(\\mathbf 0,\\sigma^{2}\\mathbf I)", "notes": "X = n×p design matrix of explanatory variables; β = vector of regression coefficients.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "OLS estimator (matrix form)", "latex": "\\hat{\\boldsymbol\\beta}=(\\mathbf X^{T}\\mathbf X)^{-1}\\mathbf X^{T}\\mathbf Y", "notes": "Minimises (Y−Xβ)ᵀ(Y−Xβ); has covariance matrix σ²(XᵀX)⁻¹.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "Adjusted R²", "latex": "R^{2}_{adj}=1-(1-R^{2})\\dfrac{n-1}{n-p-1}", "notes": "Penalises R² for the number of explanatory variables p; used for model comparison.", "tag": "Linear Regression"}, {"subject": "CS1", "chapter": "Ch.11/11b Linear & multiple regression", "category": "Linear Regression", "title": "R: fitting regression models", "latex": "\\texttt{lm(y \\~{} x1 + x2, data=df)}\\qquad \\texttt{summary(model)}\\qquad \\texttt{anova(model1, model2)}", "notes": "lm() fits ordinary least squares; anova() compares nested models via an F-test.", "tag": "R Code"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Exponential family form", "latex": "f(y;\\theta,\\phi)=\\exp\\!\\left\\{\\dfrac{y\\theta-b(\\theta)}{a(\\phi)}+c(y,\\phi)\\right\\}", "notes": "θ = natural (canonical) parameter, φ = dispersion parameter, b(·) determines the mean/variance.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Mean and variance for the exponential family", "latex": "E[Y]=b'(\\theta)\\qquad Var(Y)=b''(\\theta)\\,a(\\phi)", "notes": "b''(θ)=V(μ), the variance function, expressed in terms of the mean μ.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Linear predictor and link function", "latex": "\\eta_i=g(\\mu_i)=\\mathbf{x}_i^{T}\\boldsymbol\\beta", "notes": "g(·) is the link function connecting the mean μᵢ to the linear predictor ηᵢ.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Canonical links", "latex": "\\text{Normal: } \\eta=\\mu\\quad \\text{Poisson: } \\eta=\\ln\\mu \\quad \\text{Binomial: } \\eta=\\ln\\dfrac{\\mu}{1-\\mu}\\quad \\text{Gamma: } \\eta=-1/\\mu", "notes": "The canonical link is g=(b')^{-1}, i.e. θ=η, simplifying the estimating equations.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Deviance", "latex": "D=2\\left[\\ell(\\mathbf y;\\mathbf y)-\\ell(\\hat{\\boldsymbol\\mu};\\mathbf y)\\right]", "notes": "Twice the difference between the log-likelihood of the saturated model and the fitted model.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Scaled deviance", "latex": "D^{*}=\\dfrac{D}{\\phi}\\;\\dot\\sim\\;\\chi^{2}_{n-p}", "notes": "Approximate chi-square distribution used to assess overall goodness of fit.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Pearson residual", "latex": "r_i^{P}=\\dfrac{y_i-\\hat\\mu_i}{\\sqrt{V(\\hat\\mu_i)}}", "notes": "Standardised (raw) residual scaled by the variance function V(μ).", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Deviance residual", "latex": "r_i^{D}=sign(y_i-\\hat\\mu_i)\\sqrt{d_i}\\quad\\text{where } D=\\sum_i d_i", "notes": "Sign-adjusted square root of each observation's contribution to the total deviance.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Analysis of deviance (nested models)", "latex": "\\Delta D = D_{\\text{reduced}}-D_{\\text{full}}\\;\\dot\\sim\\;\\chi^{2}_{\\Delta p}", "notes": "Used to test whether extra parameters in the full model significantly improve fit.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "Poisson regression (log link) example", "latex": "\\ln(\\mu_i)=\\beta_0+\\beta_1 x_{1i}+\\cdots+\\beta_p x_{pi}", "notes": "Common GLM for count data with canonical log link, Var(Y)=μ.", "tag": "Generalised Linear Models"}, {"subject": "CS1", "chapter": "Ch.12 Generalised linear models", "category": "Generalised Linear Models", "title": "R: fitting a GLM", "latex": "\\texttt{glm(y \\~{} x, family=poisson(link='log'), data=df)}\\qquad \\texttt{anova(m1,m2,test='Chisq')}", "notes": "family= sets the exponential-family distribution and link function.", "tag": "R Code"}, {"subject": "CS1", "chapter": "Ch.13 Bayesian statistics", "category": "Bayesian Statistics", "title": "Bayes' theorem (continuous parameter)", "latex": "f(\\theta\\mid \\mathbf x)=\\dfrac{f(\\mathbf x\\mid \\theta)\\,f(\\theta)}{f(\\mathbf x)}\\;\\propto\\; L(\\theta)\\,f(\\theta)", "notes": "f(θ) = prior density, f(θ|x) = posterior density, L(θ) = likelihood; f(x) is the normalising constant.", "tag": "Bayesian Statistics"}, {"subject": "CS1", "chapter": "Ch.13 Bayesian statistics", "category": "Bayesian Statistics", "title": "Beta-Binomial conjugate pair", "latex": "\\theta\\sim Beta(\\alpha,\\beta),\\;\\; X\\mid \\theta \\sim Bin(n,\\theta)\\;\\;\\Rightarrow\\;\\; \\theta\\mid X=x \\sim Beta(\\alpha+x,\\;\\beta+n-x)", "notes": "The Beta prior is conjugate to the Binomial likelihood.", "tag": "Bayesian Statistics"}, {"subject": "CS1", "chapter": "Ch.13 Bayesian statistics", "category": "Bayesian Statistics", "title": "Gamma-Poisson conjugate pair", "latex": "\\lambda\\sim Gamma(\\alpha,\\beta),\\;\\; X\\mid \\lambda \\sim Poisson(\\lambda)\\;\\;\\Rightarrow\\;\\; \\lambda\\mid X=x \\sim Gamma(\\alpha+x,\\;\\beta+1)", "notes": "Extends naturally to n observations: posterior Gamma(α+Σxᵢ, β+n).", "tag": "Bayesian Statistics"}, {"subject": "CS1", "chapter": "Ch.13 Bayesian statistics", "category": "Bayesian Statistics", "title": "Normal-Normal conjugate pair", "latex": "\\mu\\sim N(\\mu_0,\\sigma_0^{2}),\\;\\; X_i\\mid \\mu \\sim N(\\mu,\\sigma^{2})\\;\\;\\Rightarrow\\;\\; \\mu\\mid \\mathbf x \\sim N\\!\\left(\\dfrac{\\sigma^{2}\\mu_0+n\\sigma_0^{2}\\bar x}{\\sigma^{2}+n\\sigma_0^{2}},\\;\\dfrac{\\sigma^{2}\\sigma_0^{2}}{\\sigma^{2}+n\\sigma_0^{2}}\\right)", "notes": "Posterior mean is a precision-weighted average of the prior mean and the sample mean.", "tag": "Bayesian Statistics"}, {"subject": "CS1", "chapter": "Ch.13 Bayesian statistics", "category": "Bayesian Statistics", "title": "Bayesian estimator under quadratic loss", "latex": "\\hat\\theta_{Bayes}=E[\\theta\\mid \\mathbf x]", "notes": "Minimises expected posterior loss L(θ,a)=(θ−a)²; the posterior mean.", "tag": "Bayesian Statistics"}, {"subject": "CS1", "chapter": "Ch.13 Bayesian statistics", "category": "Bayesian Statistics", "title": "Bayesian estimator under absolute error loss", "latex": "\\hat\\theta_{Bayes}=\\text{median of }f(\\theta\\mid \\mathbf x)", "notes": "Minimises expected posterior loss L(θ,a)=|θ−a|.", "tag": "Bayesian Statistics"}, {"subject": "CS1", "chapter": "Ch.13 Bayesian statistics", "category": "Bayesian Statistics", "title": "Bayesian estimator under all-or-nothing (0/1) loss", "latex": "\\hat\\theta_{Bayes}=\\text{mode of }f(\\theta\\mid \\mathbf x)\\;\\;(\\text{the MAP estimate})", "notes": "Minimises expected posterior loss for the zero-one loss function.", "tag": "Bayesian Statistics"}, {"subject": "CS1", "chapter": "Ch.14–15 Credibility theory & Empirical Bayes credibility", "category": "Credibility Theory", "title": "Bayesian credibility premium", "latex": "P_{Bayes}=Z\\,\\bar x+(1-Z)\\,\\mu_0", "notes": "A weighted average of the sample mean x̄ (experience) and the prior/collective mean μ₀; Z = credibility factor.", "tag": "Credibility Theory"}, {"subject": "CS1", "chapter": "Ch.14–15 Credibility theory & Empirical Bayes credibility", "category": "Credibility Theory", "title": "Credibility factor (Bühlmann model)", "latex": "Z=\\dfrac{n}{n+k},\\quad k=\\dfrac{E[Var(X\\mid \\Theta)]}{Var(E[X\\mid \\Theta])}", "notes": "n = number of observations/exposure years; k is the ratio of expected process variance to variance of hypothetical means.", "tag": "Credibility Theory"}, {"subject": "CS1", "chapter": "Ch.14–15 Credibility theory & Empirical Bayes credibility", "category": "Credibility Theory", "title": "Expected value of the process variance (EPV)", "latex": "EPV=E\\big[Var(X\\mid \\Theta)\\big]", "notes": "Average, over the prior distribution of Θ, of the within-risk variance.", "tag": "Credibility Theory"}, {"subject": "CS1", "chapter": "Ch.14–15 Credibility theory & Empirical Bayes credibility", "category": "Credibility Theory", "title": "Variance of the hypothetical means (VHM)", "latex": "VHM=Var\\big[E(X\\mid \\Theta)\\big]", "notes": "Variance, across different risks, of each risk's true mean claim amount/frequency.", "tag": "Credibility Theory"}, {"subject": "CS1", "chapter": "Ch.14–15 Credibility theory & Empirical Bayes credibility", "category": "Credibility Theory", "title": "Empirical Bayes credibility premium (model 1)", "latex": "\\hat P_i=Z\\,\\bar X_i+(1-Z)\\,\\bar{\\bar X},\\qquad Z=\\dfrac{n}{n+\\hat k}", "notes": "X̄ᵢ = mean for risk i, 𝑋̿ = overall mean across all risks; EPV and VHM are estimated from the data itself (empirical Bayes).", "tag": "Credibility Theory"}, {"subject": "CM1", "chapter": "Ch.4-6 Time value of money / interest rates", "category": "Compound Interest & Discounting", "title": "Accumulated value at compound interest", "latex": "A=X(1+i)^{n}", "notes": "X = initial capital, i = effective annual rate of interest, n = number of years.", "tag": "Compound Interest & Discounting"}, {"subject": "CM1", "chapter": "Ch.4-6 Time value of money / interest rates", "category": "Compound Interest & Discounting", "title": "Present value / discount factor", "latex": "PV=X(1+i)^{-n}=Xv^{n},\\qquad v=\\dfrac{1}{1+i}", "notes": "v = annual discount factor.", "tag": "Compound Interest & Discounting"}, {"subject": "CM1", "chapter": "Ch.4-6 Time value of money / interest rates", "category": "Compound Interest & Discounting", "title": "Effective rate of discount", "latex": "d=1-v=\\dfrac{i}{1+i}\\qquad i=\\dfrac{d}{1-d}", "notes": "d = amount of discount per unit invested at the end of the year (interest paid in advance).", "tag": "Compound Interest & Discounting"}, {"subject": "CM1", "chapter": "Ch.4-6 Time value of money / interest rates", "category": "Compound Interest & Discounting", "title": "Force of interest", "latex": "\\delta_t=\\dfrac{A'(t)}{A(t)}=\\dfrac{d}{dt}\\ln A(t)\\qquad A(t)=A(0)\\exp\\!\\left(\\int_0^t \\delta_s\\,ds\\right)", "notes": "Instantaneous (nominal, continuously compounded) rate of interest; constant force δ=ln(1+i).", "tag": "Compound Interest & Discounting"}, {"subject": "CM1", "chapter": "Ch.4-6 Time value of money / interest rates", "category": "Compound Interest & Discounting", "title": "Relationship between i, v, d, δ (constant force)", "latex": "1+i=v^{-1}=e^{\\delta}=\\left(1+\\dfrac{i^{(p)}}{p}\\right)^{p}=\\left(1-\\dfrac{d^{(p)}}{p}\\right)^{-p}", "notes": "i^(p), d^(p) are the nominal rates of interest/discount convertible p-thly per annum.", "tag": "Compound Interest & Discounting"}, {"subject": "CM1", "chapter": "Ch.4-6 Time value of money / interest rates", "category": "Compound Interest & Discounting", "title": "Nominal rate of interest convertible p-thly", "latex": "i^{(p)}=p\\left[(1+i)^{1/p}-1\\right]", "notes": "The rate quoted per annum but compounded p times per year.", "tag": "Compound Interest & Discounting"}, {"subject": "CM1", "chapter": "Ch.4-6 Time value of money / interest rates", "category": "Compound Interest & Discounting", "title": "Real vs money rate of interest (Fisher equation)", "latex": "1+i=(1+i')(1+e)", "notes": "i = money (nominal) rate, i' = real rate, e = rate of inflation over the period.", "tag": "Compound Interest & Discounting"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Annuity-immediate — PV of n unit payments in arrears", "latex": "a_{\\overline n|}=\\dfrac{1-v^{n}}{i}", "notes": "Level payments of 1 at the end of each year for n years.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Annuity-due — PV of n unit payments in advance", "latex": "\\ddot a_{\\overline n|}=\\dfrac{1-v^{n}}{d}=(1+i)\\,a_{\\overline n|}", "notes": "Level payments of 1 at the start of each year for n years.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Accumulated value of an annuity", "latex": "s_{\\overline n|}=\\dfrac{(1+i)^{n}-1}{i}\\qquad \\ddot s_{\\overline n|}=\\dfrac{(1+i)^{n}-1}{d}", "notes": "Value of the annuity at the end (s) of the n-year term.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Perpetuity-immediate / perpetuity-due", "latex": "a_{\\overline \\infty|}=\\dfrac1i\\qquad \\ddot a_{\\overline \\infty|}=\\dfrac1d", "notes": "Level payments continuing indefinitely.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Continuously payable annuity", "latex": "\\bar a_{\\overline n|}=\\dfrac{1-v^{n}}{\\delta}=\\int_0^n v^{t}\\,dt", "notes": "Payment made continuously at rate 1 per annum for n years.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "p-thly payable annuity", "latex": "a^{(p)}_{\\overline n|}=\\dfrac{1-v^{n}}{i^{(p)}}", "notes": "Level payments of 1/p made p times per year, total 1 per annum.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Increasing annuity-immediate", "latex": "(Ia)_{\\overline n|}=\\dfrac{\\ddot a_{\\overline n|}-nv^{n}}{i}", "notes": "Payments of 1,2,3,...,n at times 1,2,...,n.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Increasing perpetuity-immediate", "latex": "(Ia)_{\\overline \\infty|}=\\dfrac{1}{id}", "notes": "Payments of 1,2,3,... continuing indefinitely.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Decreasing annuity-immediate", "latex": "(Da)_{\\overline n|}=\\dfrac{n-a_{\\overline n|}}{i}", "notes": "Payments of n, n−1, ..., 1 at times 1,2,...,n.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.7-9 Discounting, level & increasing annuities", "category": "Annuities-Certain", "title": "Continuously increasing annuity", "latex": "(I\\bar a)_{\\overline n|}=\\dfrac{\\bar a_{\\overline n|}-nv^{n}}{\\delta}", "notes": "Payment rate increases continuously; payment rate t at time t.", "tag": "Annuities-Certain"}, {"subject": "CM1", "chapter": "Ch.11 Loan schedules", "category": "Loan Schedules", "title": "Level instalment on a repayment loan", "latex": "X=\\dfrac{L}{a_{\\overline n|}}", "notes": "L = loan amount, n = term, X = level annual repayment covering interest and capital.", "tag": "Loan Schedules"}, {"subject": "CM1", "chapter": "Ch.11 Loan schedules", "category": "Loan Schedules", "title": "Outstanding loan balance — retrospective method", "latex": "B_t=L(1+i)^{t}-X\\,s_{\\overline t|}", "notes": "Accumulated value of the original loan less the accumulated value of repayments made.", "tag": "Loan Schedules"}, {"subject": "CM1", "chapter": "Ch.11 Loan schedules", "category": "Loan Schedules", "title": "Outstanding loan balance — prospective method", "latex": "B_t=X\\,a_{\\overline{n-t}|}", "notes": "Present value of the remaining (n−t) instalments still to be paid.", "tag": "Loan Schedules"}, {"subject": "CM1", "chapter": "Ch.11 Loan schedules", "category": "Loan Schedules", "title": "Capital/interest split of the t-th instalment", "latex": "I_t=i\\,B_{t-1}\\qquad C_t=X-I_t", "notes": "Interest portion Iₜ is charged on the balance outstanding at the start of the period; Cₜ repays capital.", "tag": "Loan Schedules"}, {"subject": "CM1", "chapter": "Ch.12 Project appraisal", "category": "Project Appraisal", "title": "Net present value (NPV)", "latex": "NPV=\\sum_{t} C_t\\,v^{t}=\\sum_t C_t(1+i)^{-t}", "notes": "Cₜ = net cashflow at time t (positive = inflow, negative = outflow); i = chosen rate of interest / cost of capital.", "tag": "Project Appraisal"}, {"subject": "CM1", "chapter": "Ch.12 Project appraisal", "category": "Project Appraisal", "title": "Internal rate of return (IRR / yield)", "latex": "\\sum_t C_t\\,(1+i^{*})^{-t}=0", "notes": "i* is the yield: the rate of interest at which NPV = 0.", "tag": "Project Appraisal"}, {"subject": "CM1", "chapter": "Ch.12 Project appraisal", "category": "Project Appraisal", "title": "Discounted payback period (DPP)", "latex": "\\text{DPP}=\\min\\left\\{n:\\;\\sum_{t=0}^{n}C_t v^{t}\\ge 0\\right\\}", "notes": "The earliest time at which the cumulative discounted net cashflow becomes non-negative.", "tag": "Project Appraisal"}, {"subject": "CM1", "chapter": "Ch.12 Project appraisal", "category": "Project Appraisal", "title": "Money-weighted rate of return (MWRR)", "latex": "A+\\sum_t C_t(1+i)^{1-t/T}=B", "notes": "A = opening value, B = closing value, Cₜ = net cashflow at time t within [0,T]; solved for i.", "tag": "Project Appraisal"}, {"subject": "CM1", "chapter": "Ch.12 Project appraisal", "category": "Project Appraisal", "title": "Time-weighted rate of return (TWRR)", "latex": "1+i_{TW}=\\prod_{j=1}^{k}\\dfrac{V_j}{V_{j-1}+C_j}", "notes": "Vⱼ = fund value just before the j-th cashflow Cⱼ; eliminates the effect of cashflow timing/size.", "tag": "Project Appraisal"}, {"subject": "CM1", "chapter": "Ch.14 Term structure of interest rates", "category": "Term Structure of Interest Rates", "title": "Discount function", "latex": "P(t,T)=\\exp\\!\\left(-\\int_t^T \\delta(t,s)\\,ds\\right)", "notes": "Present value at time t of 1 payable at time T, using the term structure of forces of interest.", "tag": "Term Structure of Interest Rates"}, {"subject": "CM1", "chapter": "Ch.14 Term structure of interest rates", "category": "Term Structure of Interest Rates", "title": "Spot rate (zero-coupon yield)", "latex": "(1+y_t)^{t}=\\dfrac{1}{P(0,t)}", "notes": "yₜ = annualised effective yield on a t-year zero-coupon bond.", "tag": "Term Structure of Interest Rates"}, {"subject": "CM1", "chapter": "Ch.14 Term structure of interest rates", "category": "Term Structure of Interest Rates", "title": "Forward rate", "latex": "1+f_{t,t+1}=\\dfrac{P(0,t)}{P(0,t+1)}=\\dfrac{(1+y_{t+1})^{t+1}}{(1+y_t)^{t}}", "notes": "f_{t,t+1} = one-year forward rate applicable from time t to t+1, implied by the spot-rate curve.", "tag": "Term Structure of Interest Rates"}, {"subject": "CM1", "chapter": "Ch.14 Term structure of interest rates", "category": "Term Structure of Interest Rates", "title": "Par yield", "latex": "c_n\\sum_{t=1}^{n}P(0,t)+P(0,n)=1", "notes": "cₙ = coupon rate on a bond priced at par (100) with n annual coupons and redemption at 100.", "tag": "Term Structure of Interest Rates"}, {"subject": "CM1", "chapter": "Ch.14 Duration, convexity and immunisation", "category": "Duration, Convexity & Immunisation", "title": "Macaulay duration", "latex": "\\bar t=\\dfrac{\\sum_t t\\,C_t v^{t}}{\\sum_t C_t v^{t}}", "notes": "Discounted mean term of the cashflows; the present-value weighted average time of payment.", "tag": "Duration, Convexity & Immunisation"}, {"subject": "CM1", "chapter": "Ch.14 Duration, convexity and immunisation", "category": "Duration, Convexity & Immunisation", "title": "Effective (modified) duration / volatility", "latex": "v(i)=-\\dfrac{1}{P(i)}\\dfrac{dP}{di}=\\dfrac{\\bar t}{1+i}", "notes": "Measures the sensitivity of the present value to small changes in the interest rate i.", "tag": "Duration, Convexity & Immunisation"}, {"subject": "CM1", "chapter": "Ch.14 Duration, convexity and immunisation", "category": "Duration, Convexity & Immunisation", "title": "Convexity", "latex": "c(i)=\\dfrac{1}{P(i)}\\dfrac{d^{2}P}{di^{2}}", "notes": "Second-order (curvature) sensitivity measure, used with duration for larger rate changes.", "tag": "Duration, Convexity & Immunisation"}, {"subject": "CM1", "chapter": "Ch.14 Duration, convexity and immunisation", "category": "Duration, Convexity & Immunisation", "title": "Redington's immunisation — first-order condition", "latex": "V_A(i)=V_L(i)\\qquad V_A'(i)=V_L'(i)", "notes": "PV and volatility of assets equal PV and volatility of liabilities at the current rate i.", "tag": "Duration, Convexity & Immunisation"}, {"subject": "CM1", "chapter": "Ch.14 Duration, convexity and immunisation", "category": "Duration, Convexity & Immunisation", "title": "Redington's immunisation — second-order condition", "latex": "V_A''(i)>V_L''(i)", "notes": "Convexity of assets must exceed convexity of liabilities for the position to be immunised against small rate changes.", "tag": "Duration, Convexity & Immunisation"}, {"subject": "CM1", "chapter": "Ch.15 The life table", "category": "Survival Models & the Life Table", "title": "Survival function", "latex": "S(x)=P(T_0>x)=\\dfrac{l_x}{l_0}", "notes": "T₀ = future lifetime of a newborn; l_x = expected number alive at age x out of an initial cohort l₀.", "tag": "Survival Models & the Life Table"}, {"subject": "CM1", "chapter": "Ch.15 The life table", "category": "Survival Models & the Life Table", "title": "Force of mortality", "latex": "\\mu_x=\\lim_{h\\to0^{+}}\\dfrac{P(x<T_0\\le x+h\\mid T_0>x)}{h}=-\\dfrac{S'(x)}{S(x)}=-\\dfrac{d}{dx}\\ln l_x", "notes": "Instantaneous death rate at exact age x.", "tag": "Survival Models & the Life Table"}, {"subject": "CM1", "chapter": "Ch.15 The life table", "category": "Survival Models & the Life Table", "title": "Probability of death / survival — standard actuarial notation", "latex": "_{n}q_x=P(T_x\\le n)=1-\\dfrac{l_{x+n}}{l_x}\\qquad _{n}p_x=P(T_x> n)=\\dfrac{l_{x+n}}{l_x}", "notes": "Tₓ = future lifetime of a life aged exactly x; q_x = ₁q_x, p_x = ₁p_x.", "tag": "Survival Models & the Life Table"}, {"subject": "CM1", "chapter": "Ch.15 The life table", "category": "Survival Models & the Life Table", "title": "Deferred mortality probability", "latex": "_{m|n}q_x=\\dfrac{l_{x+m}-l_{x+m+n}}{l_x}={}_mp_x\\cdot {}_nq_{x+m}", "notes": "Probability that (x) survives m years and then dies within the following n years.", "tag": "Survival Models & the Life Table"}, {"subject": "CM1", "chapter": "Ch.15 The life table", "category": "Survival Models & the Life Table", "title": "Relationship between l_x and force of mortality", "latex": "l_{x}=l_0\\exp\\!\\left(-\\int_0^{x}\\mu_s\\,ds\\right)\\qquad {}_np_x=\\exp\\!\\left(-\\int_0^{n}\\mu_{x+t}\\,dt\\right)", "notes": "Fundamental link between the life table and the force of mortality.", "tag": "Survival Models & the Life Table"}, {"subject": "CM1", "chapter": "Ch.15 The life table", "category": "Survival Models & the Life Table", "title": "Curtate future lifetime", "latex": "K_x=\\lfloor T_x\\rfloor\\qquad E[K_x]=e_x=\\sum_{k=1}^{\\infty}{}_kp_x", "notes": "K_x = complete number of future years lived by (x); e_x = curtate expectation of life.", "tag": "Survival Models & the Life Table"}, {"subject": "CM1", "chapter": "Ch.15 The life table", "category": "Survival Models & the Life Table", "title": "Complete expectation of life", "latex": "\\overset{\\circ}{e}_x=E[T_x]=\\int_0^{\\infty}{}_tp_x\\,dt", "notes": "Expected future lifetime (continuous) of a life aged x.", "tag": "Survival Models & the Life Table"}, {"subject": "CM1", "chapter": "Ch.16, 18 Life assurance contracts", "category": "Life Assurance Functions", "title": "Whole life assurance (EPV), payable at end year of death", "latex": "A_x=\\sum_{k=0}^{\\infty} v^{k+1}\\,{}_kp_x\\,q_{x+k}", "notes": "Expected present value of a sum assured of 1 payable at the end of the year of death.", "tag": "Life Assurance Functions"}, {"subject": "CM1", "chapter": "Ch.16, 18 Life assurance contracts", "category": "Life Assurance Functions", "title": "Whole life assurance, payable immediately on death", "latex": "\\bar A_x=\\int_0^{\\infty} v^{t}\\,{}_tp_x\\,\\mu_{x+t}\\,dt", "notes": "Continuous version; benefit paid at the exact instant of death.", "tag": "Life Assurance Functions"}, {"subject": "CM1", "chapter": "Ch.16, 18 Life assurance contracts", "category": "Life Assurance Functions", "title": "Term assurance (EPV)", "latex": "A^{1}_{x:\\overline n|}=\\sum_{k=0}^{n-1} v^{k+1}\\,{}_kp_x\\,q_{x+k}", "notes": "Pays 1 only if death occurs within the n-year term.", "tag": "Life Assurance Functions"}, {"subject": "CM1", "chapter": "Ch.16, 18 Life assurance contracts", "category": "Life Assurance Functions", "title": "Pure endowment (EPV)", "latex": "A_{x:\\overline n|}^{\\;\\;1}={}_nE_x=v^{n}\\,{}_np_x", "notes": "Pays 1 at time n only if (x) survives to age x+n.", "tag": "Life Assurance Functions"}, {"subject": "CM1", "chapter": "Ch.16, 18 Life assurance contracts", "category": "Life Assurance Functions", "title": "Endowment assurance (EPV)", "latex": "A_{x:\\overline n|}=A^{1}_{x:\\overline n|}+{}_nE_x", "notes": "Sum of the term-assurance and pure-endowment benefits: pays 1 on death within n years or on survival to n years, whichever occurs first.", "tag": "Life Assurance Functions"}, {"subject": "CM1", "chapter": "Ch.16, 18 Life assurance contracts", "category": "Life Assurance Functions", "title": "Relationship between assurance and annuity functions", "latex": "A_x=1-d\\,\\ddot a_x\\qquad \\bar A_x=1-\\delta\\,\\bar a_x", "notes": "Fundamental identity linking assurance and annuity EPVs, from the equation of value 1=iv+... (derived via l_x/summation by parts).", "tag": "Life Assurance Functions"}, {"subject": "CM1", "chapter": "Ch.16, 18 Life assurance contracts", "category": "Life Assurance Functions", "title": "Variance of the assurance benefit", "latex": "Var(v^{K_x+1})={}^{2}A_x-(A_x)^{2}", "notes": "²A_x is the assurance function evaluated at force of interest 2δ (or rate (1+i)²−1).", "tag": "Life Assurance Functions"}, {"subject": "CM1", "chapter": "Ch.17-18 Life annuity contracts", "category": "Life Annuity Functions", "title": "Whole life annuity-due (EPV)", "latex": "\\ddot a_x=\\sum_{k=0}^{\\infty} v^{k}\\,{}_kp_x", "notes": "Annuity of 1 per annum paid annually in advance while (x) survives.", "tag": "Life Annuity Functions"}, {"subject": "CM1", "chapter": "Ch.17-18 Life annuity contracts", "category": "Life Annuity Functions", "title": "Whole life annuity-immediate (EPV)", "latex": "a_x=\\ddot a_x-1", "notes": "Payments in arrears instead of in advance.", "tag": "Life Annuity Functions"}, {"subject": "CM1", "chapter": "Ch.17-18 Life annuity contracts", "category": "Life Annuity Functions", "title": "Continuous whole life annuity (EPV)", "latex": "\\bar a_x=\\int_0^{\\infty} v^{t}\\,{}_tp_x\\,dt", "notes": "Annuity payable continuously at rate 1 per annum while (x) survives.", "tag": "Life Annuity Functions"}, {"subject": "CM1", "chapter": "Ch.17-18 Life annuity contracts", "category": "Life Annuity Functions", "title": "Temporary annuity-due (EPV)", "latex": "\\ddot a_{x:\\overline n|}=\\sum_{k=0}^{n-1} v^{k}\\,{}_kp_x=\\ddot a_x-{}_nE_x\\,\\ddot a_{x+n}", "notes": "Annuity payable for at most n years while (x) survives.", "tag": "Life Annuity Functions"}, {"subject": "CM1", "chapter": "Ch.17-18 Life annuity contracts", "category": "Life Annuity Functions", "title": "Deferred annuity-due (EPV)", "latex": "_{m|}\\ddot a_x={}_mE_x\\,\\ddot a_{x+m}=\\ddot a_x-\\ddot a_{x:\\overline m|}", "notes": "Payments begin after an m-year deferred period, provided (x) survives to age x+m.", "tag": "Life Annuity Functions"}, {"subject": "CM1", "chapter": "Ch.17-18 Life annuity contracts", "category": "Life Annuity Functions", "title": "p-thly and continuous annuity approximations", "latex": "\\ddot a_x^{(p)}\\approx \\ddot a_x-\\dfrac{p-1}{2p}\\qquad \\bar a_x\\approx \\ddot a_x-\\tfrac12", "notes": "Woolhouse's approximation, ignoring second-order (force-of-mortality) correction terms.", "tag": "Life Annuity Functions"}, {"subject": "CM1", "chapter": "Ch.20-21 Gross premiums and reserves", "category": "Premium Calculation & Reserves", "title": "Equation of value (principle of equivalence) — net premium", "latex": "P\\cdot \\ddot a_x = S\\cdot A_x", "notes": "P = net level annual premium, S = sum assured; EPV of premiums = EPV of benefits at the outset.", "tag": "Premium Calculation & Reserves"}, {"subject": "CM1", "chapter": "Ch.20-21 Gross premiums and reserves", "category": "Premium Calculation & Reserves", "title": "Net premium — whole life assurance", "latex": "P_x=\\dfrac{S\\,A_x}{\\ddot a_x}", "notes": "Standard actuarial notation for the net premium per unit sum assured, S=1: P_x = A_x/ä_x.", "tag": "Premium Calculation & Reserves"}, {"subject": "CM1", "chapter": "Ch.20-21 Gross premiums and reserves", "category": "Premium Calculation & Reserves", "title": "Gross premium equation of value", "latex": "G\\,\\ddot a_x = S\\,A_x+E_0+e\\,\\ddot a_x+(\\,\\%G)\\,G\\,\\ddot a_x", "notes": "G = gross premium, allowing for initial expenses E₀, renewal expenses e, and premium-related expenses, in addition to the benefit outgo.", "tag": "Premium Calculation & Reserves"}, {"subject": "CM1", "chapter": "Ch.20-21 Gross premiums and reserves", "category": "Premium Calculation & Reserves", "title": "Prospective (net premium) reserve", "latex": "{}_tV=S\\,A_{x+t}-P\\,\\ddot a_{x+t}", "notes": "EPV of future benefits less EPV of future premiums, valued at duration t.", "tag": "Premium Calculation & Reserves"}, {"subject": "CM1", "chapter": "Ch.20-21 Gross premiums and reserves", "category": "Premium Calculation & Reserves", "title": "Retrospective reserve", "latex": "{}_tV=\\dfrac{P\\,\\ddot s_{x:\\overline t|}-S\\cdot {}_tk_x}{{}_tE_x}\\quad\\text{(equivalently, accumulated past experience)}", "notes": "Accumulated value of past net premiums less accumulated cost of past death strain, per survivor.", "tag": "Premium Calculation & Reserves"}, {"subject": "CM1", "chapter": "Ch.20-21 Gross premiums and reserves", "category": "Premium Calculation & Reserves", "title": "Recursive (Fackler) reserve formula", "latex": "({}_tV+P)(1+i)=q_{x+t}\\,S+p_{x+t}\\,{}_{t+1}V", "notes": "Links the reserve at successive durations via the year's premium income, interest, and death/survival probabilities.", "tag": "Premium Calculation & Reserves"}, {"subject": "CM1", "chapter": "Ch.22-25 Joint life, contingent benefits & multiple decrements", "category": "Multiple-Life & Multiple-State Functions", "title": "Joint-life survival probability (independent lives)", "latex": "{}_tp_{xy}={}_tp_x\\cdot {}_tp_y", "notes": "Probability both (x) and (y) survive t years; (xy) denotes the joint-life status.", "tag": "Multiple-Life & Multiple-State Functions"}, {"subject": "CM1", "chapter": "Ch.22-25 Joint life, contingent benefits & multiple decrements", "category": "Multiple-Life & Multiple-State Functions", "title": "Last-survivor probability", "latex": "{}_tp_{\\overline{xy}}={}_tp_x+{}_tp_y-{}_tp_{xy}", "notes": "Probability at least one of (x),(y) survives t years (inclusion–exclusion).", "tag": "Multiple-Life & Multiple-State Functions"}, {"subject": "CM1", "chapter": "Ch.22-25 Joint life, contingent benefits & multiple decrements", "category": "Multiple-Life & Multiple-State Functions", "title": "Joint-life annuity (EPV)", "latex": "\\ddot a_{xy}=\\sum_{k=0}^{\\infty}v^{k}\\,{}_kp_{xy}", "notes": "Annuity payable while both (x) and (y) are alive.", "tag": "Multiple-Life & Multiple-State Functions"}, {"subject": "CM1", "chapter": "Ch.22-25 Joint life, contingent benefits & multiple decrements", "category": "Multiple-Life & Multiple-State Functions", "title": "Last-survivor annuity identity", "latex": "\\ddot a_{\\overline{xy}}=\\ddot a_x+\\ddot a_y-\\ddot a_{xy}", "notes": "EPV of an annuity payable while at least one life survives.", "tag": "Multiple-Life & Multiple-State Functions"}, {"subject": "CM1", "chapter": "Ch.22-25 Joint life, contingent benefits & multiple decrements", "category": "Multiple-Life & Multiple-State Functions", "title": "Multiple decrement — dependent probability of decrement j", "latex": "{}_tq_x^{(j)}=\\int_0^{t} {}_sp_x^{(\\tau)}\\,\\mu_{x+s}^{(j)}\\,ds", "notes": "μ_x^{(j)} = force of decrement j; p_x^{(τ)} = total (all-causes) survival probability.", "tag": "Multiple-Life & Multiple-State Functions"}, {"subject": "CM1", "chapter": "Ch.22-25 Joint life, contingent benefits & multiple decrements", "category": "Multiple-Life & Multiple-State Functions", "title": "Total force of decrement", "latex": "\\mu_x^{(\\tau)}=\\sum_{j=1}^{m}\\mu_x^{(j)}", "notes": "The overall force of decrement is the sum of the independent forces from each of the m causes.", "tag": "Multiple-Life & Multiple-State Functions"}, {"subject": "CM1", "chapter": "Ch.22-25 Joint life, contingent benefits & multiple decrements", "category": "Multiple-Life & Multiple-State Functions", "title": "Kolmogorov forward equations (multi-state model)", "latex": "\\dfrac{d}{dt}\\,{}_tp_x^{ij}=\\sum_{k\\ne j}\\left({}_tp_x^{ik}\\mu_{x+t}^{kj}-{}_tp_x^{ij}\\mu_{x+t}^{jk}\\right)", "notes": "General differential equations for transition probabilities in a multiple-state (Markov) model.", "tag": "Multiple-Life & Multiple-State Functions"}];
+</script>
+<script>
+(function(){
+  var content = document.getElementById('content');
+  var pillsBar = document.getElementById('pillsBar');
+  var noResults = document.getElementById('noResults');
+  var resultCount = document.getElementById('resultCount');
+  var searchInput = document.getElementById('searchInput');
+  var currentSubject = 'ALL';
+  var currentPill = 'ALL';
+
+  // Build ordered list of unique (subject, category, chapter)
+  var catOrder = [];
+  var seen = {};
+  FORMULAS.forEach(function(item){
+    var key = item.subject + '||' + item.category;
+    if(!seen[key]){
+      seen[key] = true;
+      catOrder.push({subject:item.subject, category:item.category, chapter:item.chapter});
+    }
+  });
+
+  function slug(s){ return s.replace(/[^a-z0-9]+/gi,'-').toLowerCase(); }
+
+  function buildPills(){
+    pillsBar.innerHTML = '';
+    var allPill = document.createElement('div');
+    allPill.className = 'pill active';
+    allPill.textContent = 'All topics';
+    allPill.dataset.pill = 'ALL';
+    pillsBar.appendChild(allPill);
+    catOrder.forEach(function(c){
+      var p = document.createElement('div');
+      p.className = 'pill';
+      p.textContent = c.category + ' (' + c.subject + ')';
+      p.dataset.pill = slug(c.subject + '-' + c.category);
+      pillsBar.appendChild(p);
+    });
+    pillsBar.querySelectorAll('.pill').forEach(function(p){
+      p.addEventListener('click', function(){
+        pillsBar.querySelectorAll('.pill').forEach(function(x){ x.classList.remove('active'); });
+        p.classList.add('active');
+        currentPill = p.dataset.pill;
+        if(currentPill === 'ALL'){
+          render();
+        } else {
+          render();
+          var target = document.getElementById('cat-' + currentPill);
+          if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+        }
+      });
+    });
+  }
+
+  function escapeHtml(str){
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function matchesSearch(item, q){
+    if(!q) return true;
+    q = q.toLowerCase();
+    return (item.title.toLowerCase().indexOf(q) > -1) ||
+           (item.category.toLowerCase().indexOf(q) > -1) ||
+           (item.chapter.toLowerCase().indexOf(q) > -1) ||
+           (item.notes.toLowerCase().indexOf(q) > -1) ||
+           (item.latex.toLowerCase().indexOf(q) > -1) ||
+           (item.subject.toLowerCase().indexOf(q) > -1) ||
+           (item.tag && item.tag.toLowerCase().indexOf(q) > -1);
+  }
+
+  function render(){
+    var q = searchInput.value.trim();
+    content.innerHTML = '';
+    var totalShown = 0;
+
+    catOrder.forEach(function(c){
+      if(currentSubject !== 'ALL' && c.subject !== currentSubject) return;
+      var catSlug = slug(c.subject + '-' + c.category);
+      if(currentPill !== 'ALL' && currentPill !== catSlug) return;
+
+      var items = FORMULAS.filter(function(it){
+        return it.subject === c.subject && it.category === c.category && matchesSearch(it, q);
+      });
+      if(items.length === 0) return;
+
+      totalShown += items.length;
+
+      var block = document.createElement('div');
+      block.className = 'category-block';
+      block.id = 'cat-' + catSlug;
+
+      var header = document.createElement('div');
+      header.className = 'category-header';
+      header.innerHTML = '<span>' + escapeHtml(c.subject) + ' &middot; ' + escapeHtml(c.category) +
+        '</span><span class="chap-tag">' + escapeHtml(c.chapter) + '</span>';
+
+      var body = document.createElement('div');
+      body.className = 'category-body';
+
+      header.addEventListener('click', function(){
+        body.classList.toggle('collapsed');
+      });
+
+      items.forEach(function(it, idx){
+        var card = document.createElement('div');
+        card.className = 'formula-card';
+        var mathId = 'math-' + catSlug + '-' + idx + '-' + Math.random().toString(36).slice(2,7);
+        card.innerHTML =
+          '<h3>' + escapeHtml(it.title) + (it.tag && it.tag !== it.category ? '<span class="tag-badge">' + escapeHtml(it.tag) + '</span>' : '') + '</h3>' +
+          '<div class="formula-math" id="' + mathId + '">$$' + it.latex + '$$</div>' +
+          '<div class="formula-notes">' + escapeHtml(it.notes) + '</div>' +
+          '<div class="formula-source">Source: ' + escapeHtml(it.subject) + ' Course Notes, ' + escapeHtml(it.chapter) + ' &mdash; IAI/IFoA Syllabus (ActEd CMP 2019)</div>' +
+          '<button class="copy-btn" data-latex="' + encodeURIComponent(it.latex) + '">Copy LaTeX</button>';
+        body.appendChild(card);
+      });
+
+      block.appendChild(header);
+      block.appendChild(body);
+      content.appendChild(block);
+    });
+
+    if(totalShown === 0){
+      noResults.style.display = 'block';
+      resultCount.textContent = 'No formulas found.';
+    } else {
+      noResults.style.display = 'none';
+      resultCount.textContent = totalShown + ' formula' + (totalShown===1?'':'s') + ' shown';
+    }
+
+    content.querySelectorAll('.copy-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var latex = decodeURIComponent(btn.getAttribute('data-latex'));
+        var text = '$$' + latex + '$$';
+        function done(){
+          var old = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 1400);
+        }
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(done).catch(function(){
+            fallbackCopy(text); done();
+          });
+        } else {
+          fallbackCopy(text); done();
+        }
+      });
+    });
+
+    if(window.MathJax && window.MathJax.typesetPromise){
+      window.MathJax.typesetPromise();
+    }
+  }
+
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  document.querySelectorAll('.subject-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.subject-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentSubject = btn.dataset.subject;
+      currentPill = 'ALL';
+      pillsBar.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('active'); });
+      var allPill = pillsBar.querySelector('.pill[data-pill="ALL"]');
+      if(allPill) allPill.classList.add('active');
+      render();
+    });
+  });
+
+  var debounceTimer;
+  searchInput.addEventListener('input', function(){
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(render, 150);
+  });
+
+  buildPills();
+  render();
+})();
+
+</script>
+</body>
+</html>
